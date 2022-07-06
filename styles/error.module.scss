@@ -1,0 +1,9 @@
+$main-color: red;
+$hover-color: blue;
+
+.error {
+    color: $main-color;
+    &:hover {
+        color: $hover-color;
+    }
+}
