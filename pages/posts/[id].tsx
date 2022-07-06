@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Router, { useRouter } from "next/router";
 import MainLayout from "../../components/layout";
+import { NextPageContext } from "next";
+import { PostType } from "../../interfaces/Posts";
 
 export default function Post({ post: serverPost }) {
   const [post, setPost] = useState(serverPost)
@@ -48,16 +50,16 @@ export default function Post({ post: serverPost }) {
   );
 }
 
-Post.getInitialProps = async ({ query, req }) => {
+Post.getInitialProps = async ({ query, req }: NextPageContext) => {
   // ctx
   if (!req) {
     return { post: null };
   }
 
     const response = await fetch(
-    `http://localhost:4200/posts/${query.id}`
+    `${process.env.API_URL}/posts/${query.id}`
     );
-    const data = await response.json();
+    const post: PostType = await response.json();
 
   return {
     post,
